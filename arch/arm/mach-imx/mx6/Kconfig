@@ -480,6 +480,14 @@ config TARGET_SAMTEC_VINING_2000
 	select MX6SX
 	imply CMD_DM
 
+config TARGET_VARISCITE_DART6UL
+	bool "Variscite Dart6UL SOM"
+	select BOARD_LATE_INIT
+	select DM
+	select DM_THERMAL
+	select MX6ULL
+	imply CMD_DM
+
 config TARGET_WANDBOARD
 	bool "wandboard"
 	select BOARD_LATE_INIT
@@ -569,6 +577,7 @@ source "board/toradex/colibri-imx6ull/Kconfig"
 source "board/k+p/kp_imx6q_tpc/Kconfig"
 source "board/udoo/Kconfig"
 source "board/udoo/neo/Kconfig"
+source "board/variscite/dart6ul/Kconfig"
 source "board/wandboard/Kconfig"
 source "board/warp/Kconfig"
 
