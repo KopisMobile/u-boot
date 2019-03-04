@@ -83,8 +83,39 @@ int board_late_init(void)
 #endif
 
 #ifdef CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
-	env_set("board_name", "EVK");
-	env_set("board_rev", "14X14");
+#define SDRAM_SIZE_STR_LEN 5
+	char sdram_size_str[SDRAM_SIZE_STR_LEN];
+	u32 cpurev, imxtype;
+
+	env_set("board_name", "MX6UL_VAR_DART");
+
+	cpurev = get_cpu_rev();
+	imxtype = (cpurev & 0xFF000) >> 12;
+
+	if (imxtype == MXC_CPU_MX6ULL)
+		env_set("soc_type", "imx6ull");
+	else
+		env_set("soc_type", "imx6ul");
+
+	snprintf(sdram_size_str, SDRAM_SIZE_STR_LEN, "%d", (int) (gd->ram_size / 1024 / 1024));
+	env_set("sdram_size", sdram_size_str);
+
+	switch (get_boot_device()) {
+	case SD1_BOOT:
+	case MMC1_BOOT:
+		env_set("boot_dev", "sd");
+		break;
+	case SD2_BOOT:
+	case MMC2_BOOT:
+		env_set("boot_dev", "emmc");
+		break;
+	case NAND_BOOT:
+		env_set("boot_dev", "nand");
+		break;
+	default:
+		env_set("boot_dev", "unknown");
+		break;
+	}
 #endif
 
 	return 0;
