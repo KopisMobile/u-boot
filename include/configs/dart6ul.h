@@ -57,7 +57,7 @@
 	"image=zImage\0" \
 	"fdt_high=0xffffffff\0" \
 	"initrd_high=0xffffffff\0" \
-	"fdt_file=imx6ull-var-dart-sd_nand.dtb\0" \
+	"fdt_file=" __stringify(CONFIG_DEFAULT_FDT_FILE) "\0" \
 	"fdt_addr=0x83000000\0" \
 	"boot_fdt=try\0" \
 	"ip_dyn=yes\0" \
